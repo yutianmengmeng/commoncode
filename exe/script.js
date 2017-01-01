@@ -64,6 +64,64 @@
 	  tempnum= this.index;
 	  
 	 }
-	}
+	};
 
+	var keybox=document.querySelector("#keybox");
+	document.onkeyup=function(e) {
+		var keyNum=window.event?e.keyCode:e.which;
+		switch(keyNum){
+			case 37:
+				// console.log(111);
+				keybox.style.left=keybox.offsetLeft-10+"px";
+				break;
+			case 38:
+				// console.log(222);
+				keybox.style.top=keybox.offsetTop-10+"px";
+				break;
+			case 39:
+				// console.log(333);
+				keybox.style.left=keybox.offsetLeft+10+"px";
+				break;
+			case 40:
+				// console.log(444);
+				keybox.style.top=keybox.offsetTop+10+"px";
+				break;
+		}
+	};
+    document.onkeydown=function(e){
+    	var keyNum=window.event?e.keyCode:e.which;
+    	ctrlkey=e.ctrlKey;
+
+    	switch(true){
+    		case ctrlkey&& keyNum==49:
+    			keybox.style.backgroundColor="green";
+    			break;
+    		case ctrlkey&& keyNum==50:
+    			keybox.style.backgroundColor="yellow";
+    			break;
+    		case ctrlkey&& keyNum==51:
+    			keybox.style.backgroundColor="blue";
+    			break;
+    		case ctrlkey&& keyNum==38:
+    			keybox.style.width=keybox.offsetWidth*1.5+"px";
+    			keybox.style.height=keybox.offsetHeight*1.5+"px";
+    			break;
+    		case ctrlkey&& keyNum==40:
+    			keybox.style.width=keybox.offsetWidth*0.75+"px";
+    			keybox.style.height=keybox.offsetHeight*0.75+"px";
+    			break;
+    		
+    		}
+    	
+    };
+    //防止溢出
+    function limit(){
+    	var doc=[document.documentElement.clientWidth,document.documentElement.clientHeight];
+    	keybox.offsetLeft<=0 && (keybox.style.left=0);
+    	keybox.offsetTop<=0 && (keybox.style.top=0);
+    	//防止右侧溢出
+    	doc[0]-keybox.offsetLeft-keybox.offsetWidth<=0 && (keybox.style.left=doc[0]-keybox.offsetWidth+'px');
+    	// 防止底部溢出
+    	doc[1]-keybox.offsetTop-keybox.offsetHeight<=0 && (keybox.style.top=doc[1] -keybox.offsetHeight+'px');
+    }
 })();
